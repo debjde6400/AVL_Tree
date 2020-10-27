@@ -15,7 +15,7 @@ class avl_tree(object):
         else:
             current_node=self.root
             while True:
-                if data<current_node.data:
+                if data < current_node.data:
                     if current_node.leftchild==None:
                         current_node.leftchild=new_node
                         new_node.parent=current_node
@@ -25,7 +25,6 @@ class avl_tree(object):
                         current_node=current_node.leftchild
                 else:
                     if current_node.rightchild==None:
-
                         current_node.rightchild=new_node
                         new_node.parent=current_node
                         self.updateBalance(current_node.rightchild)
@@ -46,14 +45,14 @@ class avl_tree(object):
             elif node.parent.rightchild==node:
                 node.parent.balance -= 1
             if node.parent.balance != 0:
-                    self.updateBalance(node.parent)
+                self.updateBalance(node.parent)
 
     def rebalance(self,node):
 
-        if node.balance<-1:
+        if node.balance < -1:
 
              a=node.rightchild
-             if (a.rightchild):
+             if (a.rightchild != None):
                  print("Rotating left")
                  self.left_rotation(node)
              else:
@@ -61,107 +60,109 @@ class avl_tree(object):
                  print("rotating right-left")
                  self.right_left_rotation(a)
 
-
-        elif node.balance>1:
-
-
+        elif node.balance > 1:
+            
             a=node.leftchild
-            if(a.leftchild):
+            if(a.leftchild != None):
                  print("Rotating right")
                  self.right_rotation(node)
             else:
                  print("Rotating left-right")
-                 self.left_rotation(a)
-                 self.right_rotation(node)
+                 self.left_right_rotation(a)
 
         else:
             pass
 
     def left_rotation(self,node):
-            print("BEIGINNING LEFT ROTATION")
+        print("BEIGINNING LEFT ROTATION")
 
-            a=node.rightchild
-            t2=a.leftchild
-            a.leftchild=node
-            node.rightchild=t2
+        a=node.rightchild
+        t2=a.leftchild
+        a.leftchild=node
+        node.rightchild=t2
 
-            if(self.root==node):
-                self.root=a
-                node.parent=a
-                a.parent=None
-            else:
-                node.parent.rightchild=a
-                a.parent=node.parent
-                node.parent=a
+        if(self.root==node):
+            self.root=a
+            node.parent=a
+            a.parent=None
+        else:
+            node.parent.rightchild=a
+            a.parent=node.parent
+            node.parent=a
 
-            self.updateBalance(a)
-            self.updateBalance(node)
+        self.updateBalance(a)
+        self.updateBalance(node)
 
     def left_right_rotation(self,node):
-            print("BEIGINNING LEFT ROTATION")
-            a=node.rightchild
-            t2=a.leftchild
-            a.leftchild=node
-            node.rightchild=t2
+        print("BEIGINNING LEFT ROTATION")
+        a=node.rightchild
+        t2=a.leftchild
+        a.leftchild=node
+        node.rightchild=t2
 
-            if(self.root==node):
-                self.root=a
-                node.parent=a
-                a.parent=None
-            else:
-                node.parent.leftchild=a
-                a.parent=node.parent
-                node.parent=a
+        if(self.root==node):
+            self.root=a
+            node.parent=a
+            a.parent=None
+        else:
+            node.parent.leftchild=a
+            a.parent=node.parent
+            node.parent=a
 
-            self.updateBalance(a)
-            self.updateBalance(node)
+        self.updateBalance(a)
+        self.updateBalance(node)
 
     def right_rotation(self,node):
-                print("BEGINNING RIGHT ROTATION")
-                a=node.leftchild
-                t3=a.rightchild
-                a.rightchild=node
-                node.leftchild=t3
+        print("BEGINNING RIGHT ROTATION")
+        a=node.leftchild
+        t3=a.rightchild
+        a.rightchild=node
+        node.leftchild=t3
 
-                if(self.root==node):
-                    self.root=a
-                    node.parent=a
-                    a.parent=None
-                else:
-                    node.parent.leftchild=a
-                    a.parent=node.parent
-                    node.parent=a
+        if(self.root==node):
+            self.root=a
+            node.parent=a
+            a.parent=None
+        else:
+            node.parent.leftchild=a
+            a.parent=node.parent
+            node.parent=a
 
-                self.updateBalance(a)
-                self.updateBalance(node)
+        self.updateBalance(a)
+        self.updateBalance(node)
 
     def right_left_rotation(self,node):
-                print("BEGINNING RIGHT ROTATION")
+        print("BEGINNING RIGHT ROTATION")
 
-                a=node.leftchild
-                t3=a.rightchild
-                a.rightchild=node
-                node.leftchild=t3
+        a=node.leftchild
+        t3=a.rightchild
+        a.rightchild=node
+        node.leftchild=t3
 
-                if(self.root==node):
-                    self.root=a
-                    node.parent=a
-                    a.parent=None
-                else:
-                    node.parent.rightchild=a
-                    a.parent=node.parent
-                    node.parent=a
+        if(self.root==node):
+            self.root=a
+            node.parent=a
+            a.parent=None
+        else:
+            node.parent.rightchild=a
+            a.parent=node.parent
+            node.parent=a
 
-                self.updateBalance(a)
-                self.updateBalance(node)
+        self.updateBalance(a)
+        self.updateBalance(node)
 
     def preorder(self,node):
         if node ==None :
             return
         else:
-            print(node.data,end="--")
+            print('M', end='*')
+            print(node.data,end="-")
+            print('L', end='*')
             self.preorder(node.leftchild)
+            print('LE', end="--")
+            print('R', end='*')
             self.preorder(node.rightchild)
+            print('RE', end="--")
 
     def height_AVL(self,node):
         if node==None:
@@ -175,8 +176,6 @@ class avl_tree(object):
         if self.root==None:
             print("Empty AVL")
         else:
-
-
             parent=None
             node=self.root
             replace_node=None
@@ -195,9 +194,6 @@ class avl_tree(object):
 
             else:
                 x=node
-
-
-
                 if (node.leftchild==None) and (node.rightchild==None):
                     if (flag):
                         parent.rightchild=None
